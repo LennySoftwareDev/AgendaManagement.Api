@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "aXIcZeX0sQb5H8WCDjZmJ/pUNiweg+8W6SkP+DodtFs=",
+  "Source": "AgendaManagement.WebApi",
+  "BasePath": "_content/AgendaManagement.WebApi",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

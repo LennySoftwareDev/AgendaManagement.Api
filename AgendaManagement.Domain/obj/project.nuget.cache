@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "8n1ulZURYH7x48tPAYs6uJ0C5TWPzFOUbO1bRixf6370AU4hVx/hMMNNW9PsmvXZT9nHuGcd3nXZm4LihIyfpQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\lenny\\source\\repos\\AgendaManagement\\AgendaManagement.Domain\\AgendaManagement.Domain.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\lenny\\.nuget\\packages\\mediatr\\12.2.0\\mediatr.12.2.0.nupkg.sha512",
+    "C:\\Users\\lenny\\.nuget\\packages\\mediatr.contracts\\2.0.1\\mediatr.contracts.2.0.1.nupkg.sha512",
+    "C:\\Users\\lenny\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\8.0.0\\microsoft.extensions.dependencyinjection.abstractions.8.0.0.nupkg.sha512",
+    "C:\\Users\\lenny\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

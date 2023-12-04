@@ -1,0 +1,12 @@
+C:\Users\lenny\source\repos\AgendaManagement\Application.Dto\bin\Debug\net6.0\Application.Dto.deps.json
+C:\Users\lenny\source\repos\AgendaManagement\Application.Dto\bin\Debug\net6.0\Application.Dto.dll
+C:\Users\lenny\source\repos\AgendaManagement\Application.Dto\bin\Debug\net6.0\Application.Dto.pdb
+C:\Users\lenny\source\repos\AgendaManagement\Application.Dto\obj\Debug\net6.0\Application.Dto.csproj.AssemblyReference.cache
+C:\Users\lenny\source\repos\AgendaManagement\Application.Dto\obj\Debug\net6.0\Application.Dto.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\lenny\source\repos\AgendaManagement\Application.Dto\obj\Debug\net6.0\Application.Dto.AssemblyInfoInputs.cache
+C:\Users\lenny\source\repos\AgendaManagement\Application.Dto\obj\Debug\net6.0\Application.Dto.AssemblyInfo.cs
+C:\Users\lenny\source\repos\AgendaManagement\Application.Dto\obj\Debug\net6.0\Application.Dto.csproj.CoreCompileInputs.cache
+C:\Users\lenny\source\repos\AgendaManagement\Application.Dto\obj\Debug\net6.0\Application.Dto.dll
+C:\Users\lenny\source\repos\AgendaManagement\Application.Dto\obj\Debug\net6.0\refint\Application.Dto.dll
+C:\Users\lenny\source\repos\AgendaManagement\Application.Dto\obj\Debug\net6.0\Application.Dto.pdb
+C:\Users\lenny\source\repos\AgendaManagement\Application.Dto\obj\Debug\net6.0\ref\Application.Dto.dll

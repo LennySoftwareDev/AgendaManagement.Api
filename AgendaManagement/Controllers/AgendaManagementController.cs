@@ -12,10 +12,7 @@ public class AgendaManagementController : ControllerBase
 
     public AgendaManagementController(IMediator mediator) =>
         _mediator = mediator;
-    /// <summary>
-    /// Obtiene todos los elementos.
-    /// </summary>
-    /// <returns>Una lista de elementos.</returns>
+
     [HttpGet(nameof(GetCitaByDay))]
     public async Task<ActionResult<string>> GetCitaByDay([FromQuery] GetCitaByDayRequestDto request)
     {

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\lenny\\source\\repos\\AgendaManagement\\Application.Dto\\Application.Dto.csproj": {}
+    "C:\\Users\\lenny\\source\\repos\\AgendaManagement.Api\\Application.Dto\\Application.Dto.csproj": {}
   },
   "projects": {
-    "C:\\Users\\lenny\\source\\repos\\AgendaManagement\\Application.Dto\\Application.Dto.csproj": {
+    "C:\\Users\\lenny\\source\\repos\\AgendaManagement.Api\\Application.Dto\\Application.Dto.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\lenny\\source\\repos\\AgendaManagement\\Application.Dto\\Application.Dto.csproj",
+        "projectUniqueName": "C:\\Users\\lenny\\source\\repos\\AgendaManagement.Api\\Application.Dto\\Application.Dto.csproj",
         "projectName": "Application.Dto",
-        "projectPath": "C:\\Users\\lenny\\source\\repos\\AgendaManagement\\Application.Dto\\Application.Dto.csproj",
+        "projectPath": "C:\\Users\\lenny\\source\\repos\\AgendaManagement.Api\\Application.Dto\\Application.Dto.csproj",
         "packagesPath": "C:\\Users\\lenny\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\lenny\\source\\repos\\AgendaManagement\\Application.Dto\\obj\\",
+        "outputPath": "C:\\Users\\lenny\\source\\repos\\AgendaManagement.Api\\Application.Dto\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

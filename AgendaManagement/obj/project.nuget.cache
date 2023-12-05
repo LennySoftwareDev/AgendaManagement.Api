@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "jz85BhGZOoK0dSDNeXgYin3Yy5GDDwVPxsEGeb2G0HOKNqci6HyvJLdj8TZw0HHuGbQqfdnRYL1q25jbKU0E/g==",
+  "dgSpecHash": "I0cvnr8E/QLNfd3e02oUOQrMGhQZszn9YLK1ezmE8kWsEJvcgJwbS8jZw1L5RD4f9Gmt/yVWNqxxuJkwZfFYng==",
   "success": true,
-  "projectFilePath": "C:\\Users\\lenny\\source\\repos\\AgendaManagement\\AgendaManagement\\AgendaManagement.WebApi.csproj",
+  "projectFilePath": "C:\\Users\\lenny\\source\\repos\\AgendaManagement.Api\\AgendaManagement\\AgendaManagement.WebApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\lenny\\.nuget\\packages\\mediatr\\12.2.0\\mediatr.12.2.0.nupkg.sha512",
     "C:\\Users\\lenny\\.nuget\\packages\\mediatr.contracts\\2.0.1\\mediatr.contracts.2.0.1.nupkg.sha512",

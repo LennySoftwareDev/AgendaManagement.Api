@@ -1,5 +1,6 @@
 ﻿using AgendaManagement.Domain.Data;
 using Application.Core.Utils;
+using Application.Dto.Citas;
 using Application.Dto.Citas.Queries;
 using MediatR;
 
@@ -17,6 +18,7 @@ public class GetCitaByDay : IRequestHandler<GetCitaByDayRequestDto, string>
         double spaceAvailable = 0;
 
         const int minimumAppointmentDuration = 30;
+        const int maximumAppointmentDuration = 90;
 
         var displayNameDay = DisplayNameDay.GetEnumDisplayName(request.Day);
 
@@ -24,36 +26,69 @@ public class GetCitaByDay : IRequestHandler<GetCitaByDayRequestDto, string>
         {
             var requestDay = _agendaManagementRepository.GetCitaByDay().Where(x => x.Day == displayNameDay);
 
-            var appointmentDuration = 0;
+            var lastHour = requestDay.LastOrDefault();
 
-            int totalMinutesBetweenHours = 0;
+            var firstHour = requestDay.FirstOrDefault();
 
             TimeSpan initialtime = TimeSpan.FromHours(9);
             TimeSpan finalTime = TimeSpan.FromHours(17);
 
             double differenceMinutesBetweenHours = (finalTime - initialtime).TotalMinutes;
 
-            foreach (var day in requestDay.ToList())
+            var totalAppointment = requestDay.Count();
+
+            var count = 0;
+
+            for (int i = 0; i < requestDay.Count(); i++)
             {
-                appointmentDuration += int.Parse(day.Duration);
+                CitaDto currentAppointment = requestDay.ElementAt(i);
 
-                TimeSpan time = TimeSpan.Parse(day.Hour);
-
-                if (time > finalTime)
+                if (i < requestDay.Count() - 1)
                 {
-                    break;
+                    CitaDto nextAppointment = requestDay.ElementAt(i + 1);
+
+                    var timeUntilNextTime = TimeSpan.Parse(nextAppointment.Hour) - TimeSpan.Parse(currentAppointment.Hour);
+
+                    var timeUntilNextTimeInMinutes = timeUntilNextTime.TotalMinutes;
+
+                    var subtractionBetweenHours = timeUntilNextTimeInMinutes - int.Parse(currentAppointment.Duration);
+
+                    if (subtractionBetweenHours >= minimumAppointmentDuration && subtractionBetweenHours < maximumAppointmentDuration)
+                    {
+                        spaceAvailable += Math.Truncate(subtractionBetweenHours / minimumAppointmentDuration);
+                    }
+                    if (subtractionBetweenHours >= maximumAppointmentDuration)
+                    {
+                        spaceAvailable += Math.Truncate(subtractionBetweenHours / minimumAppointmentDuration);
+                    }
                 }
 
-                time = time < initialtime ? initialtime : time;
-                time = time > finalTime ? finalTime : time;
+                count++;
 
-                totalMinutesBetweenHours = (int)(time - initialtime).TotalMinutes;
-            }
+                if (count == totalAppointment)
+                {
+                    var lastMinuteDifference = finalTime - TimeSpan.Parse(lastHour.Hour);
 
-            if (totalMinutesBetweenHours < differenceMinutesBetweenHours)
-            {
-                double totalMinutes = differenceMinutesBetweenHours - totalMinutesBetweenHours;
-                spaceAvailable = ((totalMinutesBetweenHours + totalMinutes) - appointmentDuration) / minimumAppointmentDuration;
+                    var durationInMinutesLastHour = TimeSpan.FromMinutes(int.Parse(lastHour.Duration));
+
+                    var resultMinutesLastHour = lastMinuteDifference.Subtract(durationInMinutesLastHour);
+
+                    var convertToMinutesMinutesLastHour = resultMinutesLastHour.TotalMinutes;
+
+                    if (convertToMinutesMinutesLastHour >= minimumAppointmentDuration)
+                    {
+                        spaceAvailable += Math.Truncate(convertToMinutesMinutesLastHour / minimumAppointmentDuration);
+                    }
+
+                    var diferenciaEntreLasPrimerasHoras = TimeSpan.Parse(firstHour.Hour) - initialtime;
+
+                    var convertToMinutesMinutesInitialHour = diferenciaEntreLasPrimerasHoras.TotalMinutes;
+
+                    if (convertToMinutesMinutesInitialHour >= minimumAppointmentDuration)
+                    {
+                        spaceAvailable += Math.Truncate(convertToMinutesMinutesInitialHour / minimumAppointmentDuration);
+                    }
+                }
             }
         }
         catch (Exception ex)

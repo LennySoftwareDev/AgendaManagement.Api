@@ -24,16 +24,16 @@ public class GetCitaByDay : IRequestHandler<GetCitaByDayRequestDto, string>
 
         try
         {
-            var requestDay = _agendaManagementRepository.GetCitaByDay().Where(x => x.Day == displayNameDay);
-
-            var lastHour = requestDay.LastOrDefault();
-
-            var firstHour = requestDay.FirstOrDefault();
-
             TimeSpan initialtime = TimeSpan.FromHours(9);
             TimeSpan finalTime = TimeSpan.FromHours(17);
 
-            double differenceMinutesBetweenHours = (finalTime - initialtime).TotalMinutes;
+            var requestDay = _agendaManagementRepository.GetCitaByDay()
+                .Where(x => x.Day == displayNameDay
+            && TimeSpan.Parse(x.Hour) <= finalTime
+            && TimeSpan.Parse(x.Hour) >= initialtime);
+
+            var lastHour = requestDay.LastOrDefault();
+            var firstHour = requestDay.FirstOrDefault();
 
             var totalAppointment = requestDay.Count();
 
@@ -51,15 +51,12 @@ public class GetCitaByDay : IRequestHandler<GetCitaByDayRequestDto, string>
 
                     var timeUntilNextTimeInMinutes = timeUntilNextTime.TotalMinutes;
 
-                    var subtractionBetweenHours = timeUntilNextTimeInMinutes - int.Parse(currentAppointment.Duration);
+                    var subtractionMinutesBetweenHours = timeUntilNextTimeInMinutes - int.Parse(currentAppointment.Duration);
 
-                    if (subtractionBetweenHours >= minimumAppointmentDuration && subtractionBetweenHours < maximumAppointmentDuration)
+                    if (subtractionMinutesBetweenHours >= minimumAppointmentDuration && subtractionMinutesBetweenHours < maximumAppointmentDuration
+                        || subtractionMinutesBetweenHours >= maximumAppointmentDuration)
                     {
-                        spaceAvailable += Math.Truncate(subtractionBetweenHours / minimumAppointmentDuration);
-                    }
-                    if (subtractionBetweenHours >= maximumAppointmentDuration)
-                    {
-                        spaceAvailable += Math.Truncate(subtractionBetweenHours / minimumAppointmentDuration);
+                        spaceAvailable += Math.Truncate(subtractionMinutesBetweenHours / minimumAppointmentDuration);
                     }
                 }
 
@@ -80,9 +77,9 @@ public class GetCitaByDay : IRequestHandler<GetCitaByDayRequestDto, string>
                         spaceAvailable += Math.Truncate(convertToMinutesMinutesLastHour / minimumAppointmentDuration);
                     }
 
-                    var diferenciaEntreLasPrimerasHoras = TimeSpan.Parse(firstHour.Hour) - initialtime;
+                    var differenceBetweenTheFirstHours = TimeSpan.Parse(firstHour.Hour) - initialtime;
 
-                    var convertToMinutesMinutesInitialHour = diferenciaEntreLasPrimerasHoras.TotalMinutes;
+                    var convertToMinutesMinutesInitialHour = differenceBetweenTheFirstHours.TotalMinutes;
 
                     if (convertToMinutesMinutesInitialHour >= minimumAppointmentDuration)
                     {
@@ -96,6 +93,6 @@ public class GetCitaByDay : IRequestHandler<GetCitaByDayRequestDto, string>
             return $"Error: {ex.Message}";
         }
 
-        return $"La cantidad de espacios disponibles para acceder a una cita el día '{displayNameDay}' son: {Math.Truncate(spaceAvailable)}";
+        return $"La cantidad de espacios disponibles para acceder a una cita el día '{displayNameDay}' son: {spaceAvailable}";
     }
 }

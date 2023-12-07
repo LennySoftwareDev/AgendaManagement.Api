@@ -52,16 +52,6 @@
   {
     "Day": "martes",
     "Hour": "15:00",
-    "Duration": "45"
-  },
-  {
-    "Day": "martes",
-    "Hour": "18:00",
-    "Duration": "45"
-  },
-  {
-    "Day": "miércoles",
-    "Hour": "09:00",
     "Duration": "30"
   },
   {

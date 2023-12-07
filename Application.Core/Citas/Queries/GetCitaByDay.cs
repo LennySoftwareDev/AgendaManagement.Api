@@ -17,20 +17,17 @@ public class GetCitaByDay : IRequestHandler<GetCitaByDayRequestDto, string>
     {
         double spaceAvailable = 0;
 
-        const int minimumAppointmentDuration = 30;
-        const int maximumAppointmentDuration = 90;
-
         var displayNameDay = DisplayNameDay.GetEnumDisplayName(request.Day);
 
         try
         {
-            TimeSpan initialtime = TimeSpan.FromHours(9);
+            TimeSpan initialTime = TimeSpan.FromHours(9);
             TimeSpan finalTime = TimeSpan.FromHours(17);
 
             var requestDay = _agendaManagementRepository.GetCitaByDay()
                 .Where(x => x.Day == displayNameDay
             && TimeSpan.Parse(x.Hour) <= finalTime
-            && TimeSpan.Parse(x.Hour) >= initialtime);
+            && TimeSpan.Parse(x.Hour) >= initialTime);
 
             var lastHour = requestDay.LastOrDefault();
             var firstHour = requestDay.FirstOrDefault();
@@ -47,44 +44,17 @@ public class GetCitaByDay : IRequestHandler<GetCitaByDayRequestDto, string>
                 {
                     CitaDto nextAppointment = requestDay.ElementAt(i + 1);
 
-                    var timeUntilNextTime = TimeSpan.Parse(nextAppointment.Hour) - TimeSpan.Parse(currentAppointment.Hour);
-
-                    var timeUntilNextTimeInMinutes = timeUntilNextTime.TotalMinutes;
-
-                    var subtractionMinutesBetweenHours = timeUntilNextTimeInMinutes - int.Parse(currentAppointment.Duration);
-
-                    if (subtractionMinutesBetweenHours >= minimumAppointmentDuration && subtractionMinutesBetweenHours < maximumAppointmentDuration
-                        || subtractionMinutesBetweenHours >= maximumAppointmentDuration)
-                    {
-                        spaceAvailable += Math.Truncate(subtractionMinutesBetweenHours / minimumAppointmentDuration);
-                    }
+                    spaceAvailable += ManagementOfAvailableHour.getSpaceAvailableBetweenHours(currentAppointment, nextAppointment);
                 }
 
                 count++;
 
                 if (count == totalAppointment)
                 {
-                    var lastMinuteDifference = finalTime - TimeSpan.Parse(lastHour.Hour);
+                    var resultBetweenFinalHours = ManagementOfAvailableHour.getSpaceAvailableBetweenFinalHours(finalTime, lastHour);
+                    var resultBetweenInitialHours = ManagementOfAvailableHour.getSpaceAvailableBetweenInitialHours(initialTime, firstHour);
 
-                    var durationInMinutesLastHour = TimeSpan.FromMinutes(int.Parse(lastHour.Duration));
-
-                    var resultMinutesLastHour = lastMinuteDifference.Subtract(durationInMinutesLastHour);
-
-                    var convertToMinutesMinutesLastHour = resultMinutesLastHour.TotalMinutes;
-
-                    if (convertToMinutesMinutesLastHour >= minimumAppointmentDuration)
-                    {
-                        spaceAvailable += Math.Truncate(convertToMinutesMinutesLastHour / minimumAppointmentDuration);
-                    }
-
-                    var differenceBetweenTheFirstHours = TimeSpan.Parse(firstHour.Hour) - initialtime;
-
-                    var convertToMinutesMinutesInitialHour = differenceBetweenTheFirstHours.TotalMinutes;
-
-                    if (convertToMinutesMinutesInitialHour >= minimumAppointmentDuration)
-                    {
-                        spaceAvailable += Math.Truncate(convertToMinutesMinutesInitialHour / minimumAppointmentDuration);
-                    }
+                    spaceAvailable += resultBetweenInitialHours + resultBetweenFinalHours;
                 }
             }
         }
